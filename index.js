@@ -21,7 +21,7 @@ app.post("/api/interactions", verifyKeyMiddleware(process.env.PUBLIC_KEY), (req,
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
-        content: `Ini adalah bot discard yang dibuat pakai nodejs`
+        content: `Ini adalah bot discord yang dibuat pakai nodejs`
       }
     })
   }
