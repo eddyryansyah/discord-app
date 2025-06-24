@@ -1,29 +1,33 @@
-// Load environment variables
-require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const {verifyKeyMiddleware, InteractionType, InteractionResponseType} = require("discord-interactions");
 
-// Import Client dari Discord.js
-const { Client, GatewayIntentBits } = require('discord.js');
+require('dotenv/config');
 
-// Inisialisasi client
-const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
-});
+const port = 3000;
 
-// Event: Bot berhasil login
-client.once('ready', () => {
-  console.log(`🤖 Bot ${client.user.tag} sudah online di server Eddy's Store!`);
-});
+const app = express();
+app.use(bodyParser.json());
 
-// Event: Menanggapi pesan
-client.on('messageCreate', message => {
-  // Abaikan pesan dari bot sendiri
-  if (message.author.bot) return;
+app.get("/", (req, res, next) => {
+  res.send({ok: true})
+})
 
-  // Respon ke perintah "!halo"
-  if (message.content.toLowerCase() === '!halo') {
-    message.channel.send(`Halo ${message.author.username}, selamat datang di Eddy's Store! 🛒`);
+app.post("/api/interactions", verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res, next) => {
+  if(req.body.type == InteractionType.PING){
+    res.send({type: InteractionResponseType.PONG})
   }
-});
+  if(req.body.type == InteractionType.APPLICATION_COMMAND){
+    res.send({
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      data: {
+        content: `Ini adalah bot discard yang dibuat pakai nodejs`
+      }
+    })
+  }
+  console.log(req.body);
+})
 
-// Login menggunakan token dari .env
-client.login(process.env.DISCORD_TOKEN);
+app.listen(port, () => {
+  console.log(`[log] server sudah berjalan di port ${port}`);
+})
