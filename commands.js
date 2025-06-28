@@ -3,7 +3,7 @@ require('dotenv/config');
 
 const infoBot = {
     name: "info-bot",
-    description: "ini adalah info dari bot",
+    description: "Informasi tentang penggunaan bot.",
     contexts: [0,1,2],
     integration_types: [0,1]
 };
