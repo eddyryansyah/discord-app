@@ -2,7 +2,7 @@ const axios = require('axios');
 require('dotenv/config');
 
 const infoBot = {
-    name: "info-bot",
+    name: "info",
     description: "Informasi tentang penggunaan bot.",
     contexts: [0,1,2],
     integration_types: [0,1]
