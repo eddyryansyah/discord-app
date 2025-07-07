@@ -21,7 +21,7 @@ app.post("/api/interactions", verifyKeyMiddleware(process.env.PUBLIC_KEY), (req,
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
-      content: `Ini adalah bot informatif yang memudahkan pengguna dalam mengakses berbagai informasi di server melalui perintah slash command.`
+      content: `Ini adalah bot informatif yang memudahkan pengguna dalam mengakses berbagai informasi pada server melalui perintah slash command.`
       }
     })
   }
